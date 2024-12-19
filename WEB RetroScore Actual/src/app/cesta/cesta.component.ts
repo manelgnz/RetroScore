@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../Services/api.service';
 import { Cart } from '../models/Cart';
+import { PopupService } from '../Services/popup.service';
 
 @Component({
   selector: 'app-cesta',
@@ -13,35 +14,41 @@ import { Cart } from '../models/Cart';
 export class CestaComponent implements OnInit {
   private apiService = inject(ApiService);
   cart: Cart | null = null;
+  isLoggedIn: boolean = false;
+  private popupService = inject(PopupService);
 
   ngOnInit(): void {
-    const user = this.apiService.getLoggedInUser(); // Obtiene el usuario actual
-    console.log('Usuario recuperado:', user); // Verifica qué se está recuperando
+    this.isLoggedIn = this.apiService.isLoggedIn();
+    if (this.isLoggedIn) {
+        const user = this.apiService.getLoggedInUser(); // Obtiene el usuario actual
+        console.log('Usuario recuperado:', user); // Verifica qué se está recuperando
 
-    if (user) {
-      const userId = user.userId; // Usa el ID del usuario
-      console.log('ID de usuario:', userId); // Verifica que userId no sea undefined
+        if (user) {
+            const userId = user.userId; // Usa el ID del usuario
+            console.log('ID de usuario:', userId); // Verifica que userId no sea undefined
 
-      // Si necesitas el cartId del localStorage, puedes hacerlo así:
-      const cartId = JSON.parse(localStorage.getItem('user') || 'null')?.cartId;
-      console.log('ID del carrito:', cartId); // Verifica que cartId no sea undefined
+            const cartId = JSON.parse(localStorage.getItem('user') || 'null')?.cartId;
+            console.log('ID del carrito:', cartId); // Verifica que cartId no sea undefined
 
-      if (cartId) {
-        this.apiService.getCartByUser(userId).subscribe({
-          next: (cart) => {
-            this.cart = cart;
-            console.log('Carrito obtenido:', cart);
-          },
-          error: (err) => console.error('Error obteniendo la cesta:', err),
-        });
-      } else {
-        console.error('cartId es undefined.');
-      }
-    } else {
-      console.error('No hay usuario autenticado.');
+            if (cartId) {
+                this.apiService.getCartByUser(userId).subscribe({
+                    next: (cart) => {
+                        this.cart = cart;
+                        console.log('Carrito obtenido:', cart);
+                    },
+                    error: (err) => console.error('Error obteniendo la cesta:', err),
+                });
+            } else {
+                console.error('cartId es undefined.');
+            }
+        } else {
+            console.error('No hay usuario autenticado.');
+        }
     }
+}
+  openRegisterPopup(): void {
+  this.popupService.showPopup();
   }
-
 
   private loadCart(): void {
     const user = this.apiService.getLoggedInUser();

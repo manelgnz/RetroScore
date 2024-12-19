@@ -1,26 +1,50 @@
 h2 {
-    color: #2a2a2a;
-  }
-  
-  p {
-    margin: 5px 0;
-  }
-  
-  hr {
-    border: 1px solid #ddd;
-  }
-  
-  button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 4px;
-    margin-top: 5px;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
+  color: #333;
+}
+
+p {
+  margin: 5px 0;
+  color: #333;
+}
+
+hr {
+  border: 1px solid #ccc;
+}
+
+button {
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+button:hover {
+  background-color: #e0e0e0;
+}
+
+.not-logged-in {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.not-logged-in p {
+  font-size: 18px;
+  color: #333;
+}
+
+.not-logged-in button {
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.not-logged-in button:hover {
+  background-color: #e0e0e0;
+}
