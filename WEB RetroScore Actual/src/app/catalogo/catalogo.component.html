@@ -1,0 +1,20 @@
+<app-sidebar-filter (filterChanged)="onFilterChanged($event)"></app-sidebar-filter>
+<section class="contenido">
+  <div *ngIf="filteredJerseys().length > 0" class="jersey-grid-container">
+    <div class="jersey-grid">
+      <div class="jersey" *ngFor="let jersey of filteredJerseys()">
+        <app-jersey
+        [team]="jersey.team"
+        [price]="jersey.price"
+        [imageURL]="jersey.imageURL"
+        [season]="jersey.season"
+        [colour]="jersey.colour"
+        [jerseyId]="jersey.id">
+      ></app-jersey>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="filteredJerseys().length === 0">
+    <p>No jerseys found.</p>
+  </div>
+</section>
