@@ -11,7 +11,7 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 @Component({
   selector: 'app-catalogo',
   standalone: true,
-  imports: [SidebarFilterComponent, CommonModule, JerseyComponent, SearchBarComponent],
+  imports: [SidebarFilterComponent, CommonModule, JerseyComponent],
   templateUrl: './catalogo.component.html',
   styleUrls: ['./catalogo.component.css']
 })

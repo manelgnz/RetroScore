@@ -83,6 +83,7 @@ const getCartByUser = async (req, res) => {
                     price: item.jerseyId.price,
                     season: item.jerseyId.season,
                     colour: item.jerseyId.colour,
+                    imageURL: item.jerseyId.imageURL
                 },
                 quantity: item.quantity,
             }))
@@ -127,6 +128,7 @@ const deleteFromCart = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
 const updateCartItem = async (req, res) => {
     const { userId, quantity } = req.body;
     const { jerseyId } = req.params; // Obtener jerseyId de los parámetros de la ruta

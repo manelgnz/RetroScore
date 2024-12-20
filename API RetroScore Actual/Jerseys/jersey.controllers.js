@@ -14,7 +14,7 @@ const getAllJerseys = async (req, res) => {
                 price: jersey.price,
                 season: jersey.season,
                 colour: jersey.colour,
-                imageUrl: jersey.imageURL
+                imageURL: jersey.imageURL
             }))
         };
         console.log(response);

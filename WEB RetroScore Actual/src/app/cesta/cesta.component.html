@@ -1,17 +1,21 @@
 <div class="container" *ngIf="isLoggedIn; else notLoggedIn">
   <div *ngIf="cart">
     <h2>Cesta del Usuario</h2>
-    <div *ngFor="let item of cart.items">
-      <img [src]="item.jersey.imageURL" alt="{{ item.jersey.team }} Jersey" style="width: 100px; height: auto;" />
-      <p><strong>Equipo:</strong> {{ item.jersey.team }}</p>
-      <p><strong>Precio:</strong> {{ item.jersey.price | currency:'EUR':'symbol' }}</p>
-      <p><strong>Temporada:</strong> {{ item.jersey.season }}</p>
-      <p><strong>Cantidad:</strong> {{ item.quantity }}</p>
-      <button (click)="removeFromCart(item.jersey.id)">Eliminar</button>
-      <hr />
+    <div class="cart-items">
+      <div class="cart-item" *ngFor="let item of cart.items">
+        <img [src]="item.jersey.imageURL" alt="{{ item.jersey.team }} Jersey">
+        <p><strong>Equipo:</strong> {{ item.jersey.team }}</p>
+        <p><strong>Precio:</strong> {{ item.jersey.price | currency:'EUR':'symbol' }}</p>
+        <p><strong>Temporada:</strong> {{ item.jersey.season }}</p>
+        <p><strong>Cantidad:</strong> {{ item.quantity }}</p>
+        <button (click)="removeFromCart(item.jersey.id)">Eliminar</button>
+      </div>
     </div>
-    <p><strong>Total:</strong> {{ calculateTotal() | currency:'EUR':'symbol' }}</p>
-    <button (click)="sendEmail()">Enviar cesta por correo</button>
+    <hr />
+    <p class="total-text"><strong>Total:</strong> {{ calculateTotal() | currency:'EUR':'symbol' }} </p>
+    <div class="center-button">
+      <button (click)="sendEmail()">Enviar cesta por correo</button>
+    </div>
   </div>
   <p *ngIf="!cart">Cargando la cesta...</p>
 </div>

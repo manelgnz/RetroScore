@@ -88,7 +88,7 @@ h2 {
   box-sizing: border-box;
 }
 
-button[type="submit"] {
+button {
   width: 100%;
   padding: 10px;
   background-color: #939597;
@@ -101,7 +101,9 @@ button[type="submit"] {
   margin-bottom: 5px;
   font-family: 'Courier New', Courier, monospace;
 }
-
+button[type="button"]:hover {
+  background-color: #d6340c;
+}
 button[type="submit"]:hover {
   background-color: #0056b3;
 }

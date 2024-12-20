@@ -28,10 +28,10 @@ export class HomeComponent implements OnInit {
 
   loadJerseys(): void {
     const jerseyIds = [
-      "674f57efad2596822f3b1833",
-      "674f57efad2596822f3b1843",
-      "674f57eead2596822f3b17f5",
-      "674f57efad2596822f3b17f7"
+      "6764e5851787ba7ec4cf111c",
+      "6764e5851787ba7ec4cf1122",
+      "6764e5851787ba7ec4cf1135",
+      "6764e5851787ba7ec4cf1101"
     ];
 
     const jerseyObservables = jerseyIds.map(id => this.apiService.getJerseyById(id));
@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
 
     const cartItem = {
       userId: user.userId, 
-      jerseyId: jersey.id, 
+      jerseyId: jersey._id, 
       quantity: 1
     };
 

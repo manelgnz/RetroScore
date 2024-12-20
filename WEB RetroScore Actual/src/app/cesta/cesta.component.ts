@@ -35,6 +35,7 @@ export class CestaComponent implements OnInit {
                     next: (cart) => {
                         this.cart = cart;
                         console.log('Carrito obtenido:', cart);
+                        
                     },
                     error: (err) => console.error('Error obteniendo la cesta:', err),
                 });
