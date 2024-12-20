@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   isLoggedIn = false;
   registrationSuccess = false;
   loginSuccess = false;
+  isRegistering = false;
 
   apiService = inject(ApiService);
   private titleService = inject(Title);
@@ -28,7 +29,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle('RetroScore | Register');
     this.isLoggedIn = this.apiService.isLoggedIn();
-    
   }
 
   constructor(private popupService: PopupService, private fb: FormBuilder) {
@@ -50,9 +50,13 @@ export class ProfileComponent implements OnInit {
 
   closePopup() {
     this.popupService.hidePopup();
-    if(this.isLoggedIn){
+    if (this.isLoggedIn) {
       window.location.reload();
     }
+  }
+
+  toggleRegister() {
+    this.isRegistering = !this.isRegistering;
   }
 
   clearForm() {
@@ -61,7 +65,7 @@ export class ProfileComponent implements OnInit {
   }
 
   register() {
-    if (this.registerForm.valid) {
+    if (this.registerForm.valid && this.registerForm.value.password === this.registerForm.value.confirmPassword) {
       const userData = {
         email: this.registerForm.value.email,
         password: this.registerForm.value.password,
@@ -90,6 +94,8 @@ export class ProfileComponent implements OnInit {
           }
         }
       );
+    } else {
+      alert('Las contraseñas no coinciden. Por favor, verifica e intenta nuevamente.');
     }
   }
 
@@ -123,7 +129,7 @@ export class ProfileComponent implements OnInit {
   logout() {
     this.apiService.logout();
     this.isLoggedIn = false;
-    window.location.reload(); 
-    this.router.navigate(['/']);
+    this.showPopup = false;
+    window.location.reload();
   }
 }

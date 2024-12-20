@@ -4,11 +4,41 @@
 
     <div *ngIf="isLoggedIn; else loginRegister">
       <h2>Bienvenido</h2>
-      <button class="logout"(click)="logout()">Cerrar Sesión</button>
+      <button class="logout" (click)="logout()">Cerrar Sesión</button>
     </div>
 
     <ng-template #loginRegister>
-      <h2>Registro de Perfil</h2>
+      <div *ngIf="!isRegistering; else registerTemplate">
+        <h2>Iniciar Sesión</h2>
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+          <div class="form-group">
+            <label for="login-email">Correo electrónico:</label>
+            <input
+              type="email"
+              id="login-email"
+              formControlName="email"
+              required
+              autocomplete="off"
+            />
+          </div>
+          <div class="form-group">
+            <label for="login-password">Contraseña:</label>
+            <input
+              type="password"
+              id="login-password"
+              formControlName="password"
+              required
+              autocomplete="off"
+            />
+          </div>
+          <button type="submit">Iniciar Sesión</button>
+          <button type="button" (click)="toggleRegister()">Registrarse</button>
+        </form>
+      </div>
+    </ng-template>
+
+    <ng-template #registerTemplate>
+      <h2>Registrarse</h2>
       <form [formGroup]="registerForm" (ngSubmit)="register()">
         <div class="form-group">
           <label for="register-email">Correo electrónico:</label>
@@ -31,41 +61,17 @@
           />
         </div>
         <div class="form-group">
-          <label for="register-confirm-password">Confirmar contraseña:</label>
+          <label for="confirm-password">Confirmar Contraseña:</label>
           <input
             type="password"
-            id="register-confirm-password"
+            id="confirm-password"
             formControlName="confirmPassword"
             required
             autocomplete="off"
           />
         </div>
         <button type="submit">Registrarse</button>
-      </form>
-
-      <h2>Iniciar Sesión</h2>
-      <form [formGroup]="loginForm" (ngSubmit)="login()">
-        <div class="form-group">
-          <label for="login-email">Correo electrónico:</label>
-          <input
-            type="email"
-            id="login-email"
-            formControlName="email"
-            required
-            autocomplete="off"
-          />
-        </div>
-        <div class="form-group">
-          <label for="login-password">Contraseña:</label>
-          <input
-            type="password"
-            id="login-password"
-            formControlName="password"
-            required
-            autocomplete="off"
-          />
-        </div>
-        <button type="submit">Iniciar Sesión</button>
+        <button type="button" (click)="toggleRegister()">Volver a Iniciar Sesión</button>
       </form>
     </ng-template>
 

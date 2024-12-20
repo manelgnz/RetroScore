@@ -1,14 +1,31 @@
+body {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 800px;
+}
+
 h2 {
   color: #333;
+  text-align: center;
 }
 
 p {
   margin: 5px 0;
   color: #333;
+  text-align: center;
 }
 
 hr {
   border: 1px solid #ccc;
+  width: 100%;
 }
 
 button {
@@ -47,4 +64,30 @@ button:hover {
 
 .not-logged-in button:hover {
   background-color: #e0e0e0;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  button {
+    padding: 6px 10px;
+  }
+
+  .not-logged-in p {
+    font-size: 16px;
+  }
+
+  .not-logged-in button {
+    padding: 6px 10px;
+  }
 }

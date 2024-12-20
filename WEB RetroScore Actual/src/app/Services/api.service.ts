@@ -83,6 +83,10 @@ export class ApiService {
     return this.http.delete(`${this.apiUrl}/cart/${jerseyId}`);
   }
 
+  createCart(cart: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/cart`, cart);
+  }
+
   updateCartItem(item: { userId: string; jerseyId: string; quantity: number }): Observable<any> {
     return this.http.put(`${this.apiUrl}/cart/${item.jerseyId}`, item);
   }

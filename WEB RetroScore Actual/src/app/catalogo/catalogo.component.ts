@@ -46,6 +46,61 @@ export class CatalogoComponent implements OnInit {
     });
   }
 
+  addToCart(jersey: Jersey): void {
+    const user = this.apiService.getLoggedInUser();
+    if (!user) {
+      alert('Por favor, inicia sesión para añadir a la cesta');
+      return;
+    }
+
+    const cartItem = {
+      userId: user.userId, 
+      jerseyId: jersey.id, 
+      quantity: 1
+    };
+
+    console.log('Obteniendo la cesta para el usuario:', user.userId);
+    this.apiService.getCartByUser(user.userId).subscribe({
+      next: (cart) => {
+        console.log('Cesta obtenida:', cart);
+        if (!cart) {
+          console.log('No se encontró cesta, creando una nueva.');
+          this.apiService.createCart({ userId: user.userId }).subscribe({
+            next: () => {
+              console.log('Cesta creada, añadiendo item a la cesta.');
+              this.addItemToCart(cartItem);
+            },
+            error: (err: any) => {
+              console.error('Error al crear la cesta:', err);
+              alert('Hubo un error al crear la cesta. Inténtalo de nuevo.');
+            }
+          });
+        } else {
+          console.log('Cesta encontrada, añadiendo item a la cesta.');
+          this.addItemToCart(cartItem);
+        }
+      },
+      error: (err: any) => {
+        console.error('Error al obtener la cesta:', err);
+        alert('Hubo un error al obtener la cesta. Inténtalo de nuevo.');
+      }
+    });
+  }
+
+  private addItemToCart(cartItem: { userId: string, jerseyId: string, quantity: number }): void {
+    console.log('Añadiendo item a la cesta:', cartItem);
+    this.apiService.addToCart(cartItem).subscribe({
+      next: () => {
+        console.log('Item añadido a la cesta exitosamente');
+        alert('Item añadido a la cesta');
+      },
+      error: (err: any) => {
+        console.error('Error al añadir el item a la cesta:', err);
+        alert('Hubo un error al añadir el item a la cesta. Inténtalo de nuevo.');
+      }
+    });
+  }
+
   onFilterChanged(filter: any): void {
     const filtered = this.jerseys().filter((jersey: Jersey) => {
       return (!filter.liga || jersey.league === filter.liga);

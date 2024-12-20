@@ -7,16 +7,17 @@ const getAllJerseys = async (req, res) => {
             next: null,
             previous: null,
             results: jerseys.map(jersey => ({
-                id: jersey._id,
+                id: jersey.id,
                 name: jersey.name,
                 team: jersey.team,
                 league: jersey.league,
                 price: jersey.price,
                 season: jersey.season,
                 colour: jersey.colour,
-                imageUrl: jersey.imageUrl
+                imageUrl: jersey.imageURL
             }))
         };
+        console.log(response);
         res.status(200).json(response);
     } catch (error) {
         res.status(500).json({ message: error.message });

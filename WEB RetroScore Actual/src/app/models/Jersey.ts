@@ -1,4 +1,5 @@
 export interface Jersey {
+  _id: string;
   id: string;
   team: string;
   price: number;

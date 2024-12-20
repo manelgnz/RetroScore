@@ -1,5 +1,5 @@
 export interface Cart {
-  cartId: string;  // Identificador único del carrito
+  _id: string;  // Identificador único del carrito
   userId: string;  // ID del usuario al que pertenece el carrito
   items: Array<{
       jersey: {
