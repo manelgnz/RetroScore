@@ -44,5 +44,5 @@ section {
     40% { transform: translateX(-200%); }
     60% { transform: translateX(-300%); }
     80% { transform: translateX(-400%); }
-    100% { transform: translateX(-500%); }
+    100%{ transform: translateX(0); }
 }
