@@ -54,18 +54,18 @@ export class CatalogoComponent implements OnInit {
     }
 
     const cartItem = {
-      userId: user.userId, 
+      userId: user._id, 
       jerseyId: jersey.id, 
       quantity: 1
     };
 
-    console.log('Obteniendo la cesta para el usuario:', user.userId);
-    this.apiService.getCartByUser(user.userId).subscribe({
+    console.log('Obteniendo la cesta para el usuario:', user._id);
+    this.apiService.getCartByUser(user._id).subscribe({
       next: (cart) => {
         console.log('Cesta obtenida:', cart);
         if (!cart) {
           console.log('No se encontró cesta, creando una nueva.');
-          this.apiService.createCart({ userId: user.userId }).subscribe({
+          this.apiService.createCart({ userId: user._id }).subscribe({
             next: () => {
               console.log('Cesta creada, añadiendo item a la cesta.');
               this.addItemToCart(cartItem);

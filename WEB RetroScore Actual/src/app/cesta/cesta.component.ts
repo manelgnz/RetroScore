@@ -24,7 +24,7 @@ export class CestaComponent implements OnInit {
         console.log('Usuario recuperado:', user); // Verifica qué se está recuperando
 
         if (user) {
-            const userId = user.userId; // Usa el ID del usuario
+            const userId = user._id; // Usa el ID del usuario
             console.log('ID de usuario:', userId); // Verifica que userId no sea undefined
 
             const cartId = JSON.parse(localStorage.getItem('user') || 'null')?.cartId;
@@ -54,8 +54,8 @@ export class CestaComponent implements OnInit {
   private loadCart(): void {
     const user = this.apiService.getLoggedInUser();
     if (user) {
-      console.log('ID de usuario para obtener el carrito:', user.userId); // Verifica el ID
-      this.apiService.getCartByUser(user.userId).subscribe({
+      console.log('ID de usuario para obtener el carrito:', user._id); // Verifica el ID
+      this.apiService.getCartByUser(user._id).subscribe({
         next: (cart) => {
           console.log('Carrito obtenido:', cart);
           this.cart = cart;
@@ -106,7 +106,7 @@ export class CestaComponent implements OnInit {
     const user = this.apiService.getLoggedInUser();
     if (user) {
       const updatedItem = {
-        userId: user.userId,
+        userId: user._id,
         jerseyId: item.jersey.id, // Asegúrate de que estás utilizando el id correcto
         quantity: item.quantity,
       };

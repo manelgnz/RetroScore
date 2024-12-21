@@ -27,16 +27,13 @@ export class HomeComponent implements OnInit {
   }
 
   loadJerseys(): void {
-    const jerseyIds = [
-      "6764e5851787ba7ec4cf111c",
-      "6764e5851787ba7ec4cf1122",
-      "6764e5851787ba7ec4cf1135",
-      "6764e5851787ba7ec4cf1101"
-    ];
+    const teams = ['Real Madrid', 'FC Barcelona', 'Manchester United', 'Juventus']; // Reemplaza con los nombres de los equipos que deseas cargar
 
-    const jerseyObservables = jerseyIds.map(id => this.apiService.getJerseyById(id));
-    forkJoin(jerseyObservables).subscribe((data: Jersey[]) => {
-      this.jerseys = data;
+    const jerseyObservables = teams.map(team => this.apiService.getJerseyByTeam(team));
+    forkJoin(jerseyObservables).subscribe((data: Jersey[][]) => {
+      this.jerseys = data.flat(); // Combina los resultados de los diferentes equipos en un solo array
+    }, error => {
+      console.error('Error al cargar los jerseys:', error);
     });
   }
 
@@ -48,18 +45,18 @@ export class HomeComponent implements OnInit {
     }
 
     const cartItem = {
-      userId: user.userId, 
+      userId: user._id, 
       jerseyId: jersey._id, 
       quantity: 1
     };
 
-    console.log('Obteniendo la cesta para el usuario:', user.userId);
-    this.apiService.getCartByUser(user.userId).subscribe({
+    console.log('Obteniendo la cesta para el usuario:', user._id);
+    this.apiService.getCartByUser(user._id).subscribe({
       next: (cart) => {
         console.log('Cesta obtenida:', cart);
         if (!cart) {
           console.log('No se encontró cesta, creando una nueva.');
-          this.apiService.createCart({ userId: user.userId }).subscribe({
+          this.apiService.createCart({ userId: user._id }).subscribe({
             next: () => {
               console.log('Cesta creada, añadiendo item a la cesta.');
               this.addItemToCart(cartItem);

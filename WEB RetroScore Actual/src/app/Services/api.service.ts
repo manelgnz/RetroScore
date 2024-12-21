@@ -25,7 +25,7 @@ export class ApiService {
       this.currentUser = JSON.parse(user);
       console.log('Usuario cargado desde localStorage:', this.currentUser);
       if (this.currentUser) {
-        console.log('ID de usuario:', this.currentUser.userId); // Agrega esta línea
+        console.log('ID de usuario:', this.currentUser._id); // Agrega esta línea
       }
     } else {
       console.log('No hay usuario en localStorage.');
